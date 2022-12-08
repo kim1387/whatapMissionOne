@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+
+  mysqldb:
+    image: mysql:8.0-oracle
+    container_name: triple-coding-test-mysqldb
+    # 맥의 경우 mysql 실행을 위해 아래 옵션 주석을 풀어주세요
+    #    platform: linux/amd64
+    env_file:
+      - "./.env"
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+      ]
+    volumes:
+      - mysql-data:/msql
+    ports:
+      - "3306:3306"
+
+    networks:
+      - network-tier
+
+networks:
+  network-tier:
+    driver: bridge
+
+volumes:
+  mysql-data:
