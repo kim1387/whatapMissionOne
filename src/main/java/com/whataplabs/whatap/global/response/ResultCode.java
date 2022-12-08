@@ -8,10 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultCode {
 
-
-
-  // product
-  ;
+// product
+;
 
   private final String code;
   private final String message;

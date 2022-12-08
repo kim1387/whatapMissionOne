@@ -1,6 +1,5 @@
 package com.whataplabs.whatap.global.exception;
 
-
 import com.whataplabs.whatap.global.response.ErrorCode;
 import lombok.Getter;
 
