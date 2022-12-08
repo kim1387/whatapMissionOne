@@ -11,6 +11,10 @@ public class SwaggerConfig {
   @Bean
   public OpenAPI whaTapOpenAPI() {
     return new OpenAPI()
-        .info(new Info().title("WhaTap 1차 과제 API").description("WhaTap 1차 과제 API 입니다.").version("v0.0.1"));
+        .info(
+            new Info()
+                .title("WhaTap 1차 과제 API")
+                .description("WhaTap 1차 과제 API 입니다.")
+                .version("v0.0.1"));
   }
 }
