@@ -4,6 +4,7 @@ import com.whataplabs.whatap.global.domain.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -31,5 +32,21 @@ public class Product extends BaseEntity {
     this.introContent = introContent;
     this.price = price;
     this.isActivated = true;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Product product = (Product) o;
+    return Objects.equals(id, product.id)
+        && Objects.equals(name, product.name)
+        && Objects.equals(introContent, product.introContent)
+        && Objects.equals(price, product.price);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, introContent, price);
   }
 }
