@@ -11,9 +11,9 @@ import java.util.Objects;
 @NoArgsConstructor
 public class ProductInfo {
 
-  private String name;
+  private String productName;
 
-  private String introContent;
+  private String productIntro;
 
   private Integer price;
 
@@ -23,13 +23,13 @@ public class ProductInfo {
 
   @Builder
   public ProductInfo(
-      String name,
-      String introContent,
+      String productName,
+      String productIntro,
       Integer price,
       LocalDateTime createdAt,
       LocalDateTime updatedAt) {
-    this.name = name;
-    this.introContent = introContent;
+    this.productName = productName;
+    this.productIntro = productIntro;
     this.price = price;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -40,8 +40,8 @@ public class ProductInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ProductInfo that = (ProductInfo) o;
-    return Objects.equals(name, that.name)
-        && Objects.equals(introContent, that.introContent)
+    return Objects.equals(productName, that.productName)
+        && Objects.equals(productIntro, that.productIntro)
         && Objects.equals(price, that.price)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(updatedAt, that.updatedAt);
@@ -49,6 +49,6 @@ public class ProductInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, introContent, price, createdAt, updatedAt);
+    return Objects.hash(productName, productIntro, price, createdAt, updatedAt);
   }
 }

@@ -20,8 +20,8 @@ public class ProductMapper {
 
   public ProductInfo mapProductEntityToProductInfo(Product product) {
     return ProductInfo.builder()
-        .name(product.getName())
-        .introContent(product.getIntroContent())
+        .productName(product.getName())
+        .productIntro(product.getIntroContent())
         .price(product.getPrice())
         .createdAt(product.getCreatedDate())
         .updatedAt(product.getUpdatedDate())

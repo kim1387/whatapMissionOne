@@ -4,6 +4,8 @@ import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 
+import java.time.LocalDateTime;
+
 public class ProductFixtures {
 
   public static final Product PRODUCT_ONE_ENTITY =
@@ -19,9 +21,11 @@ public class ProductFixtures {
           .build();
 
   public static final ProductInfo PRODUCT_ONE_INFO =
-          ProductInfo.builder()
-                  .name("상품1")
-                  .introContent("상품1 소개")
-                  .price(1000)
-                  .build();
+      ProductInfo.builder()
+          .productName("상품1")
+          .productIntro("상품1 소개")
+          .price(1000)
+          .createdAt(LocalDateTime.now())
+          .updatedAt(LocalDateTime.now())
+          .build();
 }

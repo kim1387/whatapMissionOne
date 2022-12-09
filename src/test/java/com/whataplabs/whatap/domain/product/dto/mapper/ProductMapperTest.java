@@ -43,10 +43,10 @@ class ProductMapperTest {
     ProductInfo actualProductInfo = productMapper.mapProductEntityToProductInfo(PRODUCT_ONE_ENTITY);
     // then
     assertAll(
-        () -> assertEquals(expectedProductInfo.getName(), actualProductInfo.getName()),
+        () -> assertEquals(expectedProductInfo.getProductName(), actualProductInfo.getProductName()),
         () ->
             assertEquals(
-                expectedProductInfo.getIntroContent(), actualProductInfo.getIntroContent()),
+                expectedProductInfo.getProductIntro(), actualProductInfo.getProductIntro()),
         () -> assertEquals(expectedProductInfo.getPrice(), actualProductInfo.getPrice()));
   }
 }
