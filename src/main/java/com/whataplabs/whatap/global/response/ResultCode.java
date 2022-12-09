@@ -9,6 +9,7 @@ import lombok.Getter;
 public enum ResultCode {
 
 // product
+  CREATE_PRODUCT_SUCCESS("P001","Product 생성 성공"),
 ;
 
   private final String code;
