@@ -26,9 +26,10 @@ public class Product extends BaseEntity {
   private Integer price;
 
   @Builder
-  public Product(String name, String introContent) {
+  public Product(String name, String introContent, Integer price) {
     this.name = name;
     this.introContent = introContent;
+    this.price = price;
     this.isActivated = true;
   }
 }
