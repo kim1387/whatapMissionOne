@@ -4,6 +4,7 @@ import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
+import com.whataplabs.whatap.domain.product.dto.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +14,11 @@ public class ProductService {
 
   private final ProductRepository productRepository;
 
-  public ProductInfo registerProduct(ProductRegisterRequest productRegisterRequest) {
-    Product newProduct =
-        Product.builder()
-            .name(productRegisterRequest.getProductName())
-            .introContent(productRegisterRequest.getProductIntro())
-            .price(productRegisterRequest.getPrice())
-            .build();
-    Product savedProduct = productRepository.save(newProduct);
+  private final ProductMapper productMapper;
 
-    return ProductInfo.builder()
-        .name(savedProduct.getName())
-        .introContent(savedProduct.getIntroContent())
-        .price(savedProduct.getPrice())
-        .createdAt(savedProduct.getCreatedDate())
-        .updatedAt(savedProduct.getUpdatedDate())
-        .build();
+  public ProductInfo registerProduct(ProductRegisterRequest productRegisterRequest) {
+    Product newProduct = productMapper.mapProductRegisterToProductEntity(productRegisterRequest);
+    Product savedProduct = productRepository.save(newProduct);
+    return productMapper.mapProductEntityToProductInfo(savedProduct);
   }
 }
