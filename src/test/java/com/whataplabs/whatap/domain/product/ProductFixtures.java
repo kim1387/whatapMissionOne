@@ -3,7 +3,6 @@ package com.whataplabs.whatap.domain.product;
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
-
 import java.time.LocalDateTime;
 
 public class ProductFixtures {

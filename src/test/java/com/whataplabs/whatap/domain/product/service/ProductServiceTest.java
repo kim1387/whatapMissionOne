@@ -1,5 +1,11 @@
 package com.whataplabs.whatap.domain.product.service;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
@@ -12,12 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -40,7 +40,6 @@ class ProductServiceTest {
     when(productRepository.save(any())).thenReturn(expectReturnProduct);
     ProductInfo actualResponse = productService.registerProduct(givenRequest);
     // then
-    assertAll(
-        () -> assertEquals(expectedResponse, actualResponse));
+    assertAll(() -> assertEquals(expectedResponse, actualResponse));
   }
 }

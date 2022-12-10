@@ -1,15 +1,15 @@
 package com.whataplabs.whatap.domain.product.acceptance.step;
 
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.whataplabs.whatap.domain.product.ProductFixtures;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.MediaType;
-
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductAcceptanceStep {
 
@@ -34,6 +34,4 @@ public class ProductAcceptanceStep {
     System.out.println(actualResponse);
     assertAll(() -> assertEquals(expectedProductResponse, actualResponse));
   }
-
-
 }

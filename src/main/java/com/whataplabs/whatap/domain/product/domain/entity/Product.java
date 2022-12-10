@@ -1,10 +1,9 @@
 package com.whataplabs.whatap.domain.product.domain.entity;
 
 import com.whataplabs.whatap.global.domain.BaseEntity;
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.Objects;
+import javax.persistence.*;
+import lombok.*;
 
 @Getter
 @Entity

@@ -1,11 +1,10 @@
 package com.whataplabs.whatap.domain.product.dto;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -52,12 +51,19 @@ public class ProductInfo {
 
   @Override
   public String toString() {
-    return "ProductInfo{" +
-            "productName='" + productName + '\'' +
-            ", productIntro='" + productIntro + '\'' +
-            ", price=" + price +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            '}';
+    return "ProductInfo{"
+        + "productName='"
+        + productName
+        + '\''
+        + ", productIntro='"
+        + productIntro
+        + '\''
+        + ", price="
+        + price
+        + ", createdAt="
+        + createdAt
+        + ", updatedAt="
+        + updatedAt
+        + '}';
   }
 }

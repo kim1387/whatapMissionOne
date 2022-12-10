@@ -1,7 +1,16 @@
 package com.whataplabs.whatap.global.exception.handler;
 
+import static com.whataplabs.whatap.global.response.ErrorCode.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.whataplabs.whatap.global.exception.BusinessException;
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,16 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-
-import static com.whataplabs.whatap.global.response.ErrorCode.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(
     classes = {GlobalExceptionHandlerTest.TestController.class, GlobalExceptionHandler.class})
@@ -67,18 +66,18 @@ class GlobalExceptionHandlerTest {
         .andDo(print());
   }
 
-//  @Test
-//  @DisplayName("500 에러 handler test")
-//  void handleException() throws Exception {
-//    mockMvc
-//        .perform(
-//            post("/exception")
-//                .content(objectMapper.writeValueAsString(new MockRequest(1)))
-//                .contentType(MediaType.APPLICATION_JSON))
-//        .andExpect(status().isInternalServerError())
-//        .andExpect(jsonPath("$.businessCode").value(INTERNAL_SERVER_ERROR.getCode()))
-//        .andDo(print());
-//  }
+  //  @Test
+  //  @DisplayName("500 에러 handler test")
+  //  void handleException() throws Exception {
+  //    mockMvc
+  //        .perform(
+  //            post("/exception")
+  //                .content(objectMapper.writeValueAsString(new MockRequest(1)))
+  //                .contentType(MediaType.APPLICATION_JSON))
+  //        .andExpect(status().isInternalServerError())
+  //        .andExpect(jsonPath("$.businessCode").value(INTERNAL_SERVER_ERROR.getCode()))
+  //        .andDo(print());
+  //  }
 
   private static class MockRequest {
     @Positive private int ping;

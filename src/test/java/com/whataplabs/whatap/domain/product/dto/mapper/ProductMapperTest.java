@@ -1,14 +1,14 @@
 package com.whataplabs.whatap.domain.product.dto.mapper;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductMapperTest {
 
@@ -43,7 +43,8 @@ class ProductMapperTest {
     ProductInfo actualProductInfo = productMapper.mapProductEntityToProductInfo(PRODUCT_ONE_ENTITY);
     // then
     assertAll(
-        () -> assertEquals(expectedProductInfo.getProductName(), actualProductInfo.getProductName()),
+        () ->
+            assertEquals(expectedProductInfo.getProductName(), actualProductInfo.getProductName()),
         () ->
             assertEquals(
                 expectedProductInfo.getProductIntro(), actualProductInfo.getProductIntro()),
