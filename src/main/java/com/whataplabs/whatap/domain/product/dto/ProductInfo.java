@@ -42,13 +42,22 @@ public class ProductInfo {
     ProductInfo that = (ProductInfo) o;
     return Objects.equals(productName, that.productName)
         && Objects.equals(productIntro, that.productIntro)
-        && Objects.equals(price, that.price)
-        && Objects.equals(createdAt, that.createdAt)
-        && Objects.equals(updatedAt, that.updatedAt);
+        && Objects.equals(price, that.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(productName, productIntro, price, createdAt, updatedAt);
+    return Objects.hash(productName, productIntro, price);
+  }
+
+  @Override
+  public String toString() {
+    return "ProductInfo{" +
+            "productName='" + productName + '\'' +
+            ", productIntro='" + productIntro + '\'' +
+            ", price=" + price +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
   }
 }
