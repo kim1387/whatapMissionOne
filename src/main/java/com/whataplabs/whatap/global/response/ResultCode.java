@@ -8,8 +8,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultCode {
 
-// product
-;
+  // product
+  CREATE_PRODUCT_SUCCESS("P001", "Product 생성 성공"),
+  ;
 
   private final String code;
   private final String message;
