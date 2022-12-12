@@ -1,20 +1,13 @@
 package com.whataplabs.whatap.domain.product.controller;
 
-import static com.whataplabs.whatap.domain.product.ProductFixtures.PRODUCT_ONE_REGISTER_REQUEST;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.whataplabs.whatap.domain.product.ProductFixtures;
 import com.whataplabs.whatap.domain.product.controller.document.ProductRestDocument;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
+import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.domain.product.service.ProductService;
-import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,6 +22,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(controllers = ProductController.class)
@@ -54,7 +58,7 @@ class ProductControllerTest {
 
   @Test
   @DisplayName("product 등록 api")
-  void registerCity() throws Exception {
+  void registerProduct() throws Exception {
     // given
     ProductInfo productInfo = ProductFixtures.PRODUCT_ONE_INFO;
     ProductRegisterRequest cityRegisterRequest = PRODUCT_ONE_REGISTER_REQUEST;
@@ -70,5 +74,46 @@ class ProductControllerTest {
         .andExpect(status().isOk())
         .andDo(print())
         .andDo(ProductRestDocument.getCreateProductInfoDocument());
+  }
+
+  @Test
+  @DisplayName("product 단위 조회 api")
+  void getOneProduct() throws Exception {
+    // given
+    ProductInfo productInfo = ProductFixtures.PRODUCT_ONE_INFO;
+    // when
+    when(productService.getOneProduct(any())).thenReturn(productInfo);
+
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.get("/api/v1/product/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getGetOneProductInfoDocument());
+  }
+
+  @Test
+  @DisplayName("product pagination 조회 api")
+  void getProductWithPagination() throws Exception {
+    // given
+    List<ProductInfo> productInfos =
+            List.of(PRODUCT_ONE_INFO, PRODUCT_TWO_INFO, PRODUCT_THREE_INFO, PRODUCT_FOUR_INFO);
+    ProductPageInfo expectedResponse = ProductPageInfo.builder().productInfos(productInfos).build();
+
+    // when
+    when(productService.getProductByPagination(anyInt(),anyInt())).thenReturn(expectedResponse);
+
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.get("/api/v1/product/page")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("offset", "0")
+                .param("size", "3"))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getProductInfoWithPaginationDocument());
   }
 }
