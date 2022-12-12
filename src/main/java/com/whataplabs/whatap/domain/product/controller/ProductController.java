@@ -34,7 +34,7 @@ public class ProductController {
 
   @GetMapping("/page")
   public ResponseEntity<ResultResponse> getProductByPagination(
-      @RequestParam int offset, @RequestParam int size) {
+      @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "10") int size) {
     ProductPageInfo productInfo = productService.getProductByPagination(offset, size);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.GET_ONE_PRODUCT_SUCCESS, productInfo));
   }
