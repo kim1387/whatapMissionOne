@@ -28,7 +28,7 @@ public class ProductService {
 
   public ProductInfo getOneProduct(Long id) {
     Product foundProduct =
-        productRepository.findById(id).orElseThrow(NotFoundProductException::new);
+        productRepository.findProductsById(id).orElseThrow(NotFoundProductException::new);
     return productMapper.mapProductEntityToProductInfo(foundProduct);
   }
 
