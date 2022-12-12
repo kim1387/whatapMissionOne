@@ -3,9 +3,13 @@ package com.whataplabs.whatap.domain.product.service;
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
+import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.domain.product.dto.mapper.ProductMapper;
+import com.whataplabs.whatap.domain.product.exception.NotFoundProductException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,5 +24,17 @@ public class ProductService {
     Product newProduct = productMapper.mapProductRegisterToProductEntity(productRegisterRequest);
     Product savedProduct = productRepository.save(newProduct);
     return productMapper.mapProductEntityToProductInfo(savedProduct);
+  }
+
+  public ProductInfo getOneProduct(Long id) {
+    Product foundProduct =
+        productRepository.findById(id).orElseThrow(NotFoundProductException::new);
+    return productMapper.mapProductEntityToProductInfo(foundProduct);
+  }
+
+  public ProductPageInfo getProductByPagination(int offset, int size) {
+    PageRequest pageRequest = PageRequest.of(offset, size);
+    Page<Product> productByPagination = productRepository.findProductsWithPagination(pageRequest);
+    return productMapper.mapEntityToProductPageInfo(productByPagination);
   }
 }

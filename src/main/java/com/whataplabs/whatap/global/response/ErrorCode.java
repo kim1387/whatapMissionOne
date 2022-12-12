@@ -13,6 +13,9 @@ public enum ErrorCode {
 
   // Test
   TEST_EXCEPTION_VALUE(400, "T001", "예외 테스트 출력"),
+
+  // Product
+  NOT_FOUND_PRODUCT_ENTITY(400, "P001", "존재하지 않는 product 입니다."),
   ;
 
   private final int status;
