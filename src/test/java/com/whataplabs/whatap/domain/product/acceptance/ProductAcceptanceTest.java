@@ -1,20 +1,19 @@
 package com.whataplabs.whatap.domain.product.acceptance;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static com.whataplabs.whatap.domain.product.acceptance.step.ProductAcceptanceStep.*;
+import static com.whataplabs.whatap.global.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
+
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.global.acceptance.BaseAcceptanceTest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static com.whataplabs.whatap.domain.product.acceptance.step.ProductAcceptanceStep.*;
-import static com.whataplabs.whatap.global.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 
 @DisplayName("Product 인수/통합 테스트")
 class ProductAcceptanceTest extends BaseAcceptanceTest {

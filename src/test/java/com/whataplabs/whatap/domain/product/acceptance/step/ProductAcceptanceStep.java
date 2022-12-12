@@ -1,5 +1,10 @@
 package com.whataplabs.whatap.domain.product.acceptance.step;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.whataplabs.whatap.domain.product.ProductFixtures;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
@@ -7,15 +12,9 @@ import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.global.acceptance.BaseAcceptanceTest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.http.MediaType;
-
-import java.util.List;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Product 인수/통합 테스트")
 public class ProductAcceptanceStep extends BaseAcceptanceTest {

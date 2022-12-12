@@ -1,11 +1,19 @@
 package com.whataplabs.whatap.domain.product.service;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.domain.product.dto.mapper.ProductMapper;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,15 +23,6 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-
-import java.util.List;
-import java.util.Optional;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {

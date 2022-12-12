@@ -1,7 +1,13 @@
 package com.whataplabs.whatap.domain.product.domain.repository;
 
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.exception.NotFoundProductException;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,13 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
-
-import java.util.List;
-import java.util.Optional;
-
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 @DataJpaTest
