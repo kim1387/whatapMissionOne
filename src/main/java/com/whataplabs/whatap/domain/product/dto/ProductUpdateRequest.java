@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class ProductUpdateRequest {
 
-  @NotBlank(message = "상품 Id를 입력해주세요.")
+  @NotNull(message = "상품 Id를 입력해주세요.")
   private final Long productId;
   
   @NotBlank(message = "상품이름을 입력해주세요.")

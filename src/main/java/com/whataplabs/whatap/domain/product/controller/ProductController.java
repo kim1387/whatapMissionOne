@@ -7,10 +7,11 @@ import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
 import com.whataplabs.whatap.domain.product.service.ProductService;
 import com.whataplabs.whatap.global.response.ResultCode;
 import com.whataplabs.whatap.global.response.ResultResponse;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/api/v1/product")
 @RestController
@@ -47,7 +48,7 @@ public class ProductController {
   }
 
   @DeleteMapping("{id}")
-  public ResponseEntity<ResultResponse> updateProduct(@PathVariable Long id) {
+  public ResponseEntity<ResultResponse> deleteProduct(@PathVariable Long id) {
     productService.deleteProductById(id);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.DELETE_PRODUCT_PAGE_SUCCESS, ""));
   }
