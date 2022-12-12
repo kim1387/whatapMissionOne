@@ -10,6 +10,8 @@ public enum ResultCode {
 
   // product
   CREATE_PRODUCT_SUCCESS("P001", "Product 생성 성공"),
+  GET_ONE_PRODUCT_SUCCESS("P002", "Product 단일 조회 성공"),
+  GET_PRODUCT_PAGE_SUCCESS("P003", "Product Pagination 조회 성공"),
   ;
 
   private final String code;
