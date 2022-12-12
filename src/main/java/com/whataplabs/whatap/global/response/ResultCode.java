@@ -12,6 +12,7 @@ public enum ResultCode {
   CREATE_PRODUCT_SUCCESS("P001", "Product 생성 성공"),
   GET_ONE_PRODUCT_SUCCESS("P002", "Product 단일 조회 성공"),
   GET_PRODUCT_PAGE_SUCCESS("P003", "Product Pagination 조회 성공"),
+  DELETE_PRODUCT_PAGE_SUCCESS("P004", "Product 삭제 성공"),
   ;
 
   private final String code;

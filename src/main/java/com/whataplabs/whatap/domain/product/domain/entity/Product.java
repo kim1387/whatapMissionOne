@@ -1,9 +1,11 @@
 package com.whataplabs.whatap.domain.product.domain.entity;
 
+import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
 import com.whataplabs.whatap.global.domain.BaseEntity;
-import java.util.Objects;
-import javax.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -33,6 +35,15 @@ public class Product extends BaseEntity {
     this.isActivated = true;
   }
 
+  public void update(ProductUpdateRequest request) {
+    this.name = request.getProductName();
+    this.introContent = request.getProductIntro();
+    this.price = request.getPrice();
+  }
+  public void delete() {
+    this.isActivated = false;
+
+  }
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
