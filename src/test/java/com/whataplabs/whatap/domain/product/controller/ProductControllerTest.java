@@ -1,13 +1,5 @@
 package com.whataplabs.whatap.domain.product.controller;
 
-import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.whataplabs.whatap.domain.product.ProductFixtures;
@@ -16,8 +8,6 @@ import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.domain.product.service.ProductService;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +22,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(controllers = ProductController.class)
@@ -114,5 +116,39 @@ class ProductControllerTest {
         .andExpect(status().isOk())
         .andDo(print())
         .andDo(ProductRestDocument.getProductInfoWithPaginationDocument());
+  }
+
+  @Test
+  @DisplayName("product 수정 api")
+  void updateProduct() throws Exception {
+    // given
+    // when
+    when(productService.updateProduct(any())).thenReturn(UPDATED_PRODUCT_ONE_INFO);
+
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.put("/api/v1/product")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_ONE_UPDATE_REQUEST)))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getUpdateProductInfoDocument());
+  }
+
+  @Test
+  @DisplayName("product 삭제 api")
+  void deleteProduct() throws Exception {
+    // given
+    // when
+    doNothing().when(productService).deleteProductById(any());
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.delete("/api/v1/product/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getDeleteProductDocument());
   }
 }
