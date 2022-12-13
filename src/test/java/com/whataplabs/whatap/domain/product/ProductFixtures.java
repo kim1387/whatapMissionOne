@@ -4,7 +4,6 @@ import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
 import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
-
 import java.time.LocalDateTime;
 
 public class ProductFixtures {
@@ -22,7 +21,7 @@ public class ProductFixtures {
       Product.builder().name("상품1 수정").introContent("상품1 소개 수정").price(10000).build();
 
   public static Product DELETABLE_PRODUCT_ONE_ENTITY =
-          Product.builder().name("상품1").introContent("상품1 소개").price(1000).build();
+      Product.builder().name("상품1").introContent("상품1 소개").price(1000).build();
   public static final ProductRegisterRequest PRODUCT_ONE_REGISTER_REQUEST =
       ProductRegisterRequest.builder()
           .productName("상품1")
@@ -31,13 +30,12 @@ public class ProductFixtures {
           .build();
 
   public static final ProductUpdateRequest PRODUCT_ONE_UPDATE_REQUEST =
-          ProductUpdateRequest.builder()
-                  .productId(1L)
-                  .productName("상품1 수정")
-                  .productIntro("상품1 소개 수정")
-                  .price(10000)
-                  .build();
-
+      ProductUpdateRequest.builder()
+          .productId(1L)
+          .productName("상품1 수정")
+          .productIntro("상품1 소개 수정")
+          .price(10000)
+          .build();
 
   public static final ProductInfo UPDATED_PRODUCT_ONE_INFO =
       ProductInfo.builder()
