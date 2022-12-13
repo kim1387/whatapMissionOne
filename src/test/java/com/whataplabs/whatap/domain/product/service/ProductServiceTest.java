@@ -1,8 +1,7 @@
 package com.whataplabs.whatap.domain.product.service;
 
 import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +10,7 @@ import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductPageInfo;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
+import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
 import com.whataplabs.whatap.domain.product.dto.mapper.ProductMapper;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +34,7 @@ class ProductServiceTest {
 
   @Test
   @DisplayName("product 를 등록하는 메서드")
-  void registerProductTest() {
+  void createProductTest() {
     // given
 
     ProductRegisterRequest givenRequest = PRODUCT_ONE_REGISTER_REQUEST;
@@ -44,21 +44,6 @@ class ProductServiceTest {
     // when
     when(productRepository.save(any())).thenReturn(expectReturnProduct);
     ProductInfo actualResponse = productService.registerProduct(givenRequest);
-    // then
-    assertAll(() -> assertEquals(expectedResponse, actualResponse));
-  }
-
-  @Test
-  @DisplayName("product 단일 조회 메서드")
-  void getOneProductTest() {
-    // given
-
-    Optional<Product> expectReturnProduct = Optional.of(PRODUCT_ONE_ENTITY);
-    ProductInfo expectedResponse = PRODUCT_ONE_INFO;
-
-    // when
-    when(productRepository.findProductsById(any())).thenReturn(expectReturnProduct);
-    ProductInfo actualResponse = productService.getOneProduct(1L);
     // then
     assertAll(() -> assertEquals(expectedResponse, actualResponse));
   }
@@ -106,5 +91,35 @@ class ProductServiceTest {
             assertEquals(
                 expectedResponse.getProductInfos().get(2),
                 actualResponse.getProductInfos().get(2)));
+  }
+
+  @Test
+  @DisplayName("product 를 수정하는 메서드")
+  void updateProductTest() {
+    // given
+    ProductUpdateRequest givenRequest = ProductUpdateRequest.builder().build();
+    Product expectReturnProduct = PRODUCT_ONE_ENTITY;
+    Product expectReturnUpdatedProduct = UPDATED_PRODUCT_ONE_ENTITY;
+    ProductInfo expectedResponse = UPDATED_PRODUCT_ONE_INFO;
+
+    // when
+    when(productRepository.save(any())).thenReturn(expectReturnUpdatedProduct);
+    when(productRepository.findProductsById(any())).thenReturn(Optional.of(expectReturnProduct));
+    ProductInfo actualResponse = productService.updateProduct(givenRequest);
+    // then
+    assertAll(() -> assertEquals(expectedResponse, actualResponse));
+  }
+
+  @Test
+  @DisplayName("product 를 삭제하는 메서드")
+  void deleteProductTest() {
+    // given
+    Product expectReturnProduct = DELETABLE_PRODUCT_ONE_ENTITY;
+
+    // when
+    when(productRepository.findProductsById(any())).thenReturn(Optional.of(expectReturnProduct));
+    productService.deleteProductById(1L);
+    // then
+    assertAll(() -> assertFalse(expectReturnProduct.isActivated()));
   }
 }

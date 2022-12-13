@@ -7,6 +7,7 @@ import static com.whataplabs.whatap.global.acceptance.step.AcceptanceStep.assert
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.domain.repository.ProductRepository;
 import com.whataplabs.whatap.domain.product.dto.ProductRegisterRequest;
+import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
 import com.whataplabs.whatap.global.acceptance.BaseAcceptanceTest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -60,5 +61,40 @@ class ProductAcceptanceTest extends BaseAcceptanceTest {
     // then
     assertThatStatusIsOk(response);
     assertThatProductWithPaginationInfo(response);
+  }
+
+  @DisplayName("Product 를 수정한다.")
+  @Test
+  void updateProductTest() {
+    // given
+    Product saveProduct = productRepository.save(PRODUCT_ONE_ENTITY);
+    final ProductUpdateRequest givenRequest =
+        ProductUpdateRequest.builder()
+            .productId(saveProduct.getId())
+            .productName("상품1 수정")
+            .productIntro("상품1 소개 수정")
+            .price(10000)
+            .build();
+    // when
+    ExtractableResponse<Response> response = requestToUpdateProduct(givenRequest);
+
+    // then
+    assertThatStatusIsOk(response);
+    assertThatUpdatedProductInfo(response);
+  }
+
+  @DisplayName("Product 를 삭제한다.")
+  @Test
+  void deleteProductTest() {
+    // given
+    Product saveProduct = productRepository.save(PRODUCT_ONE_ENTITY);
+
+    // when
+
+    ExtractableResponse<Response> response = requestToDeleteProduct(saveProduct.getId());
+
+    // then
+    assertThatStatusIsOk(response);
+    assertThatDeleteProductById(response);
   }
 }

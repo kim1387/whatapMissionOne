@@ -3,6 +3,7 @@ package com.whataplabs.whatap.domain.product.controller;
 import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -114,5 +115,39 @@ class ProductControllerTest {
         .andExpect(status().isOk())
         .andDo(print())
         .andDo(ProductRestDocument.getProductInfoWithPaginationDocument());
+  }
+
+  @Test
+  @DisplayName("product 수정 api")
+  void updateProduct() throws Exception {
+    // given
+    // when
+    when(productService.updateProduct(any())).thenReturn(UPDATED_PRODUCT_ONE_INFO);
+
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.put("/api/v1/product")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_ONE_UPDATE_REQUEST)))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getUpdateProductInfoDocument());
+  }
+
+  @Test
+  @DisplayName("product 삭제 api")
+  void deleteProduct() throws Exception {
+    // given
+    // when
+    doNothing().when(productService).deleteProductById(any());
+    // then
+    mockMvc
+        .perform(
+            RestDocumentationRequestBuilders.delete("/api/v1/product/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andDo(ProductRestDocument.getDeleteProductDocument());
   }
 }

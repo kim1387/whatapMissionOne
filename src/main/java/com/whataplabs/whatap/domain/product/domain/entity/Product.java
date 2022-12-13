@@ -1,5 +1,6 @@
 package com.whataplabs.whatap.domain.product.domain.entity;
 
+import com.whataplabs.whatap.domain.product.dto.ProductUpdateRequest;
 import com.whataplabs.whatap.global.domain.BaseEntity;
 import java.util.Objects;
 import javax.persistence.*;
@@ -31,6 +32,16 @@ public class Product extends BaseEntity {
     this.introContent = introContent;
     this.price = price;
     this.isActivated = true;
+  }
+
+  public void update(ProductUpdateRequest request) {
+    this.name = request.getProductName();
+    this.introContent = request.getProductIntro();
+    this.price = request.getPrice();
+  }
+
+  public void delete() {
+    this.isActivated = false;
   }
 
   @Override

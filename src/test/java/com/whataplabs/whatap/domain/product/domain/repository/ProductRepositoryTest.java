@@ -1,8 +1,7 @@
 package com.whataplabs.whatap.domain.product.domain.repository;
 
 import static com.whataplabs.whatap.domain.product.ProductFixtures.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.whataplabs.whatap.domain.product.domain.entity.Product;
 import com.whataplabs.whatap.domain.product.exception.NotFoundProductException;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,8 +71,8 @@ class ProductRepositoryTest {
   }
 
   @Nested
-  @DisplayName("product 단일 조회")
-  class GetProductsWithPagiNationTest {
+  @DisplayName("product pagination 조회")
+  class GetProductsWithPaginationTest {
 
     @Test
     @DisplayName("product Pagination 조회 성공")
@@ -92,6 +92,41 @@ class ProductRepositoryTest {
           () -> assertEquals(givenProductList.get(0), productsWithPagination.get(0)),
           () -> assertEquals(givenProductList.get(1), productsWithPagination.get(1)),
           () -> assertEquals(givenProductList.get(2), productsWithPagination.get(2)));
+    }
+  }
+
+  @Nested
+  @DisplayName("product 삭제")
+  class DeleteProductTest {
+
+    @Test
+    @DisplayName("product 삭제 성공")
+    void deleteProductSuccessTest() {
+      // given
+      Product givenProduct = productRepository.save(PRODUCT_ONE_ENTITY);
+
+      // when
+      assertEquals(givenProduct, productRepository.findProductsById(givenProduct.getId()).get());
+      productRepository.deleteById(givenProduct.getId());
+
+      assertAll(
+          () ->
+              assertEquals(
+                  Optional.empty(), productRepository.findProductsById(givenProduct.getId())));
+    }
+
+    @Test
+    @DisplayName("예외: 존재하지 않는 product 삭제")
+    void deleteProductFailTest() {
+      // given
+      Product givenProduct = productRepository.save(PRODUCT_ONE_ENTITY);
+
+      // when, then
+      assertAll(
+          () ->
+              assertThrows(
+                  EmptyResultDataAccessException.class,
+                  () -> productRepository.deleteById(100000L)));
     }
   }
 }

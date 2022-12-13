@@ -79,4 +79,40 @@ public class ProductRestDocument {
                 .type(JsonFieldType.STRING)
                 .description("product 내용 수정 일자")));
   }
+
+  public static RestDocumentationResultHandler getUpdateProductInfoDocument() {
+    return document(
+        "/product/update",
+        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+        requestFields(
+            fieldWithPath("productId").type(JsonFieldType.NUMBER).description("수정할 product Id"),
+            fieldWithPath("productName").type(JsonFieldType.STRING).description("product 이름"),
+            fieldWithPath("productIntro").type(JsonFieldType.STRING).description("product 소개"),
+            fieldWithPath("price").type(JsonFieldType.NUMBER).description("product 가격")),
+        responseFields(
+            fieldWithPath("code").type(JsonFieldType.STRING).description("Business code"),
+            fieldWithPath("message").type(JsonFieldType.STRING).description("response message"),
+            fieldWithPath("data.productName").type(JsonFieldType.STRING).description("product 이름"),
+            fieldWithPath("data.productIntro")
+                .type(JsonFieldType.STRING)
+                .description("product 에 대한 소개"),
+            fieldWithPath("data.price").type(JsonFieldType.NUMBER).description("product 가격"),
+            fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("product 생성 일자"),
+            fieldWithPath("data.updatedAt")
+                .type(JsonFieldType.STRING)
+                .description("product 내용 수정 일자")));
+  }
+
+  public static RestDocumentationResultHandler getDeleteProductDocument() {
+    return document(
+        "/product/delete",
+        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+        pathParameters(parameterWithName("id").description("삭제할 Product id")),
+        responseFields(
+            fieldWithPath("code").type(JsonFieldType.STRING).description("Business code"),
+            fieldWithPath("message").type(JsonFieldType.STRING).description("response message"),
+            fieldWithPath("data").type(JsonFieldType.STRING).description("empty String")));
+  }
 }
