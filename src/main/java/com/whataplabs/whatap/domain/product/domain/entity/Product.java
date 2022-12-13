@@ -40,10 +40,11 @@ public class Product extends BaseEntity {
     this.introContent = request.getProductIntro();
     this.price = request.getPrice();
   }
+
   public void delete() {
     this.isActivated = false;
-
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
