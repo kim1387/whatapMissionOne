@@ -1,12 +1,11 @@
 package com.whataplabs.whatap.domain.product.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Builder
 @Getter
@@ -15,7 +14,7 @@ public class ProductUpdateRequest {
 
   @NotNull(message = "상품 Id를 입력해주세요.")
   private final Long productId;
-  
+
   @NotBlank(message = "상품이름을 입력해주세요.")
   private final String productName;
 
